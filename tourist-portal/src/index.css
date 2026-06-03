@@ -1,0 +1,381 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:ital,wght@0,700;0,800;0,900;1,800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 40% 96%;
+    --foreground: 220 25% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 25% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 25% 12%;
+    --primary: 214 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 20% 92%;
+    --secondary-foreground: 220 25% 25%;
+    --muted: 210 20% 90%;
+    --muted-foreground: 220 10% 50%;
+    --accent: 214 100% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 72% 56%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 152 58% 42%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    --info: 199 89% 48%;
+    --info-foreground: 0 0% 100%;
+    --border: 210 20% 86%;
+    --input: 210 20% 86%;
+    --ring: 214 100% 50%;
+    --radius: 1rem;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 214 100% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 20% 92%;
+    --sidebar-accent-foreground: 220 25% 25%;
+    --sidebar-border: 210 20% 86%;
+    --sidebar-ring: 214 100% 50%;
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+  }
+}
+
+/* ════════════════════════════════════════
+   SCENIC BACKGROUND — Bright, vivid, minimal overlay
+   ════════════════════════════════════════ */
+.scenic-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  /* Bright mountain landscape — Himalayan peaks + vivid sky */
+  background-image:
+    url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1920&q=90&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center 40%;
+  background-repeat: no-repeat;
+}
+
+/* Very light vignette only at the very bottom — let the image breathe */
+.scenic-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.08) 0%,
+    rgba(0, 0, 0, 0.12) 60%,
+    rgba(0, 0, 0, 0.22) 100%
+  );
+}
+
+.page-wrapper {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}
+
+/* ════════════════════════════════════════
+   GLASS EFFECTS — Light frosted glass (reference image style)
+   ════════════════════════════════════════ */
+@layer utilities {
+  /* Subtle light glass — like the card in reference */
+  .glass {
+    background: rgba(255, 255, 255, 0.20);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+  }
+
+  /* Main frosted card — matches reference exactly */
+  .glass-strong {
+    background: rgba(240, 245, 255, 0.22);
+    backdrop-filter: blur(28px) saturate(200%);
+    -webkit-backdrop-filter: blur(28px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.40);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255,255,255,0.5);
+  }
+
+  /* The main card panel (right side) */
+  .glass-card {
+    background: rgba(200, 215, 240, 0.40);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    box-shadow:
+      0 20px 60px rgba(0, 0, 0, 0.18),
+      0 4px 16px rgba(0, 0, 0, 0.10),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+
+  /* ── Gradients ── */
+  .gradient-primary {
+    background: linear-gradient(135deg, hsl(214 100% 50%), hsl(228 90% 62%));
+  }
+  .gradient-accent {
+    background: linear-gradient(135deg, hsl(152 58% 42%), hsl(160 60% 38%));
+  }
+  .gradient-mesh { background: transparent; }
+  .gradient-mesh-hero { background: transparent; }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #ffffff 0%, #dbeafe 60%, #93c5fd 100%);
+  }
+
+  .text-gradient-blue {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(214 100% 60%), hsl(230 85% 72%));
+  }
+
+  /* ── Blob shapes ── */
+  .blob { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+  .blob-2 { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+
+  /* ── Animations ── */
+  .animate-float { animation: float 6s ease-in-out infinite; }
+  .animate-float-delayed { animation: float 6s ease-in-out 2s infinite; }
+  .animate-slide-up { animation: slideUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .animate-slide-left { animation: slideLeft 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .animate-fade-in { animation: fadeIn 0.6s ease-out both; }
+  .animate-scale-in { animation: scaleIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .animate-ticker { animation: ticker 22s linear infinite; }
+  .animate-pulse-slow { animation: pulseSlow 3s ease-in-out infinite; }
+  .animate-shimmer { animation: shimmer 2s linear infinite; }
+
+  .delay-100 { animation-delay: 0.1s; }
+  .delay-200 { animation-delay: 0.2s; }
+  .delay-300 { animation-delay: 0.3s; }
+  .delay-400 { animation-delay: 0.4s; }
+  .delay-500 { animation-delay: 0.5s; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-14px) rotate(2deg); }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideLeft {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.88); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes pulseSlow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to { background-position: 200% 0; }
+}
+
+/* ── Step wizard line ── */
+.step-line {
+  @apply h-0.5 flex-1 transition-all duration-500;
+}
+.step-line-active {
+  background: linear-gradient(90deg, hsl(214 100% 50%), hsl(228 90% 62%));
+}
+.step-line-inactive {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* ── Bar gauge ── */
+.bar-gauge-track {
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.25);
+  overflow: hidden;
+}
+.bar-gauge-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: all 0.7s ease-out;
+}
+
+/* ════════════════════════════════════════
+   NAVBAR — matches reference (light frosted top bar)
+   ════════════════════════════════════════ */
+.navbar-glass {
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.30);
+}
+
+/* ════════════════════════════════════════
+   BUTTONS
+   ════════════════════════════════════════ */
+.btn-signin {
+  background: linear-gradient(135deg, hsl(214 100% 50%), hsl(228 90% 58%));
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  border: none;
+  border-radius: 10px;
+  padding: 14px 24px;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.45);
+  display: block;
+  text-align: center;
+}
+.btn-signin:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.60);
+}
+.btn-signin:active { transform: translateY(0); }
+
+.btn-google {
+  background: rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.40);
+  border-radius: 10px;
+  padding: 12px 24px;
+  width: 100%;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.btn-google:hover {
+  background: rgba(255, 255, 255, 0.32);
+  transform: translateY(-1px);
+}
+
+/* ── Divider ── */
+.or-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.8rem;
+}
+.or-divider::before,
+.or-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* ── Labels inside glass card ── */
+.glass-label {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* ════════════════════════════════════════
+   INPUT FIELDS — crisp white, like reference
+   ════════════════════════════════════════ */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+input[type="date"],
+input[type="password"] {
+  background: rgba(255, 255, 255, 0.92) !important;
+  color: #1a202c !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.80) !important;
+  border-radius: 10px;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+input[type="password"]:focus {
+  background: #ffffff !important;
+  border-color: hsl(214, 100%, 54%) !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.22) !important;
+  outline: none !important;
+}
+input::placeholder { color: #9ca3af !important; }
+
+/* ── Transparent search input ── */
+.search-input-transparent,
+.search-input-transparent:focus {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: rgba(255, 255, 255, 0.90) !important;
+}
+.search-input-transparent::placeholder {
+  color: rgba(255, 255, 255, 0.45) !important;
+}
+
+/* ════════════════════════════════
+   TYPOGRAPHY — Hero heading style
+   ════════════════════════════════ */
+.hero-heading {
+  font-family: 'Montserrat', 'Inter', sans-serif;
+  font-weight: 900;
+  font-style: italic;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  /* White text with subtle shadow — readable over any scenic bg */
+  color: #ffffff;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.25);
+}
+
+.travel-brand {
+  font-family: 'Montserrat', 'Inter', sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  font-size: 1.05rem;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.25);
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.25); border-radius: 3px; }
+
+/* ── Leaflet overrides ── */
+.leaflet-container {
+  @apply rounded-2xl;
+  z-index: 1;
+}
